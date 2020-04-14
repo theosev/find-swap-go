@@ -1,7 +1,7 @@
 package main
 
 import (
-	"find-swap-go/store"
+	"github.com/theosev/find-swap-go/store"
 	"fmt"
 )
 

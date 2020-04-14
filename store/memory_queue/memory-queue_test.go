@@ -1,7 +1,7 @@
 package memory_queue_test
 
 import (
-	mqueue "find-swap-go/store/memory_queue"
+	mqueue "github.com/theosev/find-swap-go/store/memory_queue"
 	"testing"
 )
 
