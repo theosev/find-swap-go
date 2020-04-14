@@ -1,12 +1,12 @@
 package memory_queue_test
 
 import (
-	mqueue "github.com/theosev/find-swap-go/store/memory_queue"
+	mq "github.com/theosev/find-swap-go/store/memory_queue"
 	"testing"
 )
 
 func TestNewQueue(t *testing.T) {
-	store := mqueue.New()
+	store := mq.New()
 
 	if store == nil {
 		t.Fatalf("unexpected error from New: Queue is empty")
@@ -16,8 +16,7 @@ func TestNewQueue(t *testing.T) {
 
 func TestQueueOperations(t *testing.T) {
 	testValue := 5
-	store := mqueue.New()
-
+	store := mq.New()
 
 	store.Enqueue(testValue)
 

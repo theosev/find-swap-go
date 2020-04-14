@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/theosev/find-swap-go/store"
 	"fmt"
+	mq "github.com/theosev/find-swap-go/store/memory_queue"
 )
 
 func main() {
-	list := store.New()
+	list := mq.New()
 
 	fmt.Println(list.Dequeue())
 }
