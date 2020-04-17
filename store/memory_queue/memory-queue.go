@@ -25,3 +25,7 @@ func (q *MemoryQueue) Dequeue() interface{} {
 	q.list = q.list[1:]
 	return element
 }
+
+func (q *MemoryQueue) GetLength() int {
+	return len(q.list)
+}

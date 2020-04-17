@@ -8,5 +8,9 @@ import (
 func main() {
 	list := mq.New()
 
-	fmt.Println(list.Dequeue())
+	list.Enqueue(1)
+	list.Enqueue(2)
+	list.Enqueue(2)
+
+	fmt.Println(list)
 }
