@@ -46,11 +46,13 @@ func TestFinder_Found(t *testing.T) {
 	search := New(mq)
 	search.Timeout = 5 * time.Second
 
+	// Create first user
 	TestUser1 := user.New(1)
 	testChannel1 := make(chan bool)
 	defer close(testChannel1)
 	go search.Start(testChannel1, TestUser1)
 
+	// Create second user
 	TestUser2 := user.New(2)
 	testChannel2 := make(chan bool)
 	defer close(testChannel2)
@@ -76,16 +78,19 @@ func TestFinder_MoreUsers(t *testing.T) {
 	search := New(mq)
 	search.Timeout = 5 * time.Second
 
+	// Create first user
 	TestUser1 := user.New(1)
 	testChannel1 := make(chan bool)
 	defer close(testChannel1)
 	go search.Start(testChannel1, TestUser1)
 
+	// Create second user
 	TestUser2 := user.New(2)
 	testChannel2 := make(chan bool)
 	defer close(testChannel2)
 	go search.Start(testChannel2, TestUser2)
 
+	// Create third user
 	TestUser3 := user.New(3)
 	testChannel3 := make(chan bool)
 	defer close(testChannel3)
