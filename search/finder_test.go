@@ -3,6 +3,7 @@ package search
 import (
 	"github.com/theosev/find-swap-go/store/memory_queue"
 	"github.com/theosev/find-swap-go/user"
+	"math/rand"
 	"testing"
 	"time"
 )
@@ -122,5 +123,19 @@ func TestFinder_MoreUsers(t *testing.T) {
 
 	if numberTrue != 2 {
 		t.Fatalf("unexpected error: numberTrue should be 2: %d", numberTrue)
+	}
+}
+
+func BenchmarkFinder_Start(b *testing.B) {
+	mq := memory_queue.New()
+	search := New(mq)
+	search.Timeout = 5 * time.Second
+
+	for i := 0; i < b.N; i++ {
+		TestUser := user.New(rand.Intn(1000000))
+		testChannel := make(chan bool)
+		defer close(testChannel)
+		go search.Start(testChannel, TestUser)
+		<-testChannel
 	}
 }
