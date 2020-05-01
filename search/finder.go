@@ -1,29 +1,32 @@
 package search
 
 import (
-	"github.com/theosev/find-swap-go/store/memory_queue"
+	"github.com/theosev/find-swap-go/store/mqueue"
 	"github.com/theosev/find-swap-go/user"
 	"sync"
 	"time"
 )
 
-const Timeout = 20 * time.Second
+const timeout = 20 * time.Second
 
+// Finder struct
 type Finder struct {
-	Queue   *memory_queue.MemoryQueue
+	Queue   *mqueue.MemoryQueue
 	Timeout time.Duration
 	Mutex   sync.Mutex
 }
 
+// Element struct
 type Element struct {
 	Object        interface{}
 	ObjectChannel chan bool
 }
 
-func New(mq *memory_queue.MemoryQueue) *Finder {
+// New creates a new Finder
+func New(mq *mqueue.MemoryQueue) *Finder {
 	return &Finder{
 		Queue:   mq,
-		Timeout: Timeout,
+		Timeout: timeout,
 	}
 }
 

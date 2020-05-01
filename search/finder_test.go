@@ -1,7 +1,7 @@
 package search
 
 import (
-	"github.com/theosev/find-swap-go/store/memory_queue"
+	"github.com/theosev/find-swap-go/store/mqueue"
 	"github.com/theosev/find-swap-go/user"
 	"math/rand"
 	"testing"
@@ -9,7 +9,7 @@ import (
 )
 
 func TestSearchCreation(t *testing.T) {
-	mq := memory_queue.New()
+	mq := mqueue.New()
 	search := New(mq)
 
 	if search == nil {
@@ -20,15 +20,15 @@ func TestSearchCreation(t *testing.T) {
 		t.Fatalf("unexpected error from New: Queue is not empty")
 	}
 
-	if search.Timeout != Timeout {
+	if search.Timeout != timeout {
 		t.Fatalf("unexpected error from New: Timeout is not 20 seconds")
 	}
 }
 
 func TestFinder_NotFound(t *testing.T) {
-	mq := memory_queue.New()
+	mq := mqueue.New()
 	search := New(mq)
-	search.Timeout = 5 * time.Second
+	search.Timeout = time.Second
 
 	TestUser := user.New(1)
 
@@ -43,9 +43,9 @@ func TestFinder_NotFound(t *testing.T) {
 }
 
 func TestFinder_Found(t *testing.T) {
-	mq := memory_queue.New()
+	mq := mqueue.New()
 	search := New(mq)
-	search.Timeout = 5 * time.Second
+	search.Timeout = time.Second
 
 	// Create first user
 	TestUser1 := user.New(1)
@@ -75,9 +75,9 @@ func TestFinder_Found(t *testing.T) {
 func TestFinder_MoreUsers(t *testing.T) {
 	var expectedResult []bool
 
-	mq := memory_queue.New()
+	mq := mqueue.New()
 	search := New(mq)
-	search.Timeout = 5 * time.Second
+	search.Timeout = time.Second
 
 	// Create first user
 	TestUser1 := user.New(1)
@@ -99,6 +99,8 @@ func TestFinder_MoreUsers(t *testing.T) {
 
 	user1 := <-testChannel1
 	user2 := <-testChannel2
+
+
 	user3 := <-testChannel3
 
 	expectedResult = append(expectedResult, user1)
@@ -127,9 +129,9 @@ func TestFinder_MoreUsers(t *testing.T) {
 }
 
 func BenchmarkFinder_Start(b *testing.B) {
-	mq := memory_queue.New()
+	mq := mqueue.New()
 	search := New(mq)
-	search.Timeout = 5 * time.Second
+	search.Timeout = time.Second
 
 	for i := 0; i < b.N; i++ {
 		TestUser := user.New(rand.Intn(1000000))

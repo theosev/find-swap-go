@@ -1,15 +1,19 @@
 package user
 
-const State = "WAITING"
 
+const state = "WAITING"
+
+// User struct
 type User struct {
-	State string
-	Id    int
+	state string
+	id    int
+	ComChannel chan byte
 }
 
+// New creates a new anonymous user
 func New(id int) *User {
 	return &User{
-		State: State,
-		Id:    id,
+		state: state,
+		id:    id,
 	}
 }
