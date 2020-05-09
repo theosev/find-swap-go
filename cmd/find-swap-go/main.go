@@ -2,11 +2,46 @@ package main
 
 import (
 	"fmt"
-	mq "github.com/theosev/find-swap-go/store/memory_queue"
+	"github.com/theosev/find-swap-go/search"
+	"github.com/theosev/find-swap-go/store/mqueue"
+	"log"
+	"net"
 )
 
 func main() {
-	list := mq.New()
+	listener, err := net.Listen("tcp", "localhost:3000")
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	fmt.Println(list.Dequeue())
+	for {
+		conn, err := listener.Accept()
+		if err != nil {
+			log.Println(err)
+			continue
+		}
+
+		mq := mqueue.New()
+		s := search.New(mq)
+		go handleConn(conn, s)
+	}
+
+}
+
+func handleConn(c net.Conn, s *search.Finder) {
+	defer c.Close()
+
+
+	fmt.Println("Start searching...")
+	//u := user.New(rand.Int())
+	//uChannel := make(chan bool)
+	//defer close(uChannel)
+	//
+	//s.Start(uChannel, u)
+	// do something
+	//select {
+	// case received bytes from the other go routine
+	// case received bytes from the client
+	// timeout
+	//}
 }

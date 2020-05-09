@@ -1,4 +1,4 @@
-package memory_queue
+package mqueue
 
 // MemoryQueue type
 type MemoryQueue struct {
@@ -24,4 +24,9 @@ func (q *MemoryQueue) Dequeue() interface{} {
 	element := q.list[0]
 	q.list = q.list[1:]
 	return element
+}
+
+// GetLength returns the length of the queue
+func (q *MemoryQueue) GetLength() int {
+	return len(q.list)
 }
