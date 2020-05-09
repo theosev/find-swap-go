@@ -23,8 +23,8 @@ func main() {
 		}
 
 		mq := mqueue.New()
-		search := search.New(mq)
-		go handleConn(conn, search)
+		s := search.New(mq)
+		go handleConn(conn, s)
 	}
 
 }
