@@ -1,11 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"github.com/theosev/find-swap-go/search"
 	"github.com/theosev/find-swap-go/store/mqueue"
-	"github.com/theosev/find-swap-go/user"
 	"log"
-	"math/rand"
 	"net"
 )
 
@@ -32,15 +31,17 @@ func main() {
 func handleConn(c net.Conn, s *search.Finder) {
 	defer c.Close()
 
-	u := user.New(rand.Int())
-	uChannel := make(chan bool)
-	defer close(uChannel)
 
-	s.Start(uChannel, u)
+	fmt.Println("Start searching...")
+	//u := user.New(rand.Int())
+	//uChannel := make(chan bool)
+	//defer close(uChannel)
+	//
+	//s.Start(uChannel, u)
 	// do something
-	select {
+	//select {
 	// case received bytes from the other go routine
 	// case received bytes from the client
 	// timeout
-	}
+	//}
 }
